@@ -1,27 +1,31 @@
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Navbar from "./layouts/Navbar";
+import DashboardPage from "./pages/DashboardPage";
 import RegisterPage from "./pages/auth/RegisterPage";
 import LoginPage from "./pages/auth/LoginPage";
 import EventsPage from "./pages/EventsPage";
-import Navbar from "./layouts/Navbar";
-import DashboardPage from "./pages/DashboardPage";
+import useDarkMode from "./hooks/useDarkMode";
 
 function App() {
+  useDarkMode();
+
   return (
     <Router>
-      <Navbar />
-      <div className="min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white">
-        <Routes>
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/events" element={<EventsPage />} />
-          <Route path="/dashboard" element={<DashboardPage />} />
-          <Route path="/" element={<Navigate to="/login" replace />} />
-        </Routes>
+      <div className="bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-50 min-h-screen">
+        <Navbar />
+        <div className="pt-16">
+          <Routes>
+            <Route path="/" element={<DashboardPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
+
+            <Route path="/dashboard" element={<DashboardPage />} />
+            <Route path="/events" element={<EventsPage />} />
+          </Routes>
+        </div>
+        <ToastContainer />
       </div>
     </Router>
   );
