@@ -29,6 +29,7 @@ const statusColorMap = {
 const EventsPage = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("");
+  const [categoryFilter, setCategoryFilter] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
 
@@ -37,6 +38,7 @@ const EventsPage = () => {
   const filters = {
     title: debouncedSearchTerm,
     status: statusFilter,
+    category: categoryFilter,
     page: currentPage,
     limit: itemsPerPage,
   };
@@ -61,6 +63,7 @@ const EventsPage = () => {
     if (window.confirm("Êtes-vous sûr de vouloir supprimer cet événement ?")) {
       try {
         await deleteEvent(id).unwrap();
+        refetch();
         alert("Événement supprimé avec succès !");
       } catch (err) {
         console.error("Échec de la suppression de l'événement :", err);
@@ -78,7 +81,6 @@ const EventsPage = () => {
       setCurrentPage(page);
     }
   };
-
 
   const renderPaginationButtons = () => {
     const pages = [];
@@ -172,6 +174,30 @@ const EventsPage = () => {
               {Object.keys(statusMap).map((key) => (
                 <option key={key} value={key}>
                   {statusMap[key]}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <label
+              htmlFor="categoryFilter"
+              className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+            >
+              Filtrer par catégorie
+            </label>
+            <select
+              id="categoryFilter"
+              value={statusFilter}
+              onChange={(e) => {
+                setCategoryFilter(e.target.value);
+                setCurrentPage(1);
+              }}
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+            >
+              <option value="">Toutes les catégories</option>
+              {Object.keys(categoryMap).map((key) => (
+                <option key={key} value={key}>
+                  {categoryMap[key]}
                 </option>
               ))}
             </select>

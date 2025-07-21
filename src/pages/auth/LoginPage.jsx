@@ -29,7 +29,7 @@ const LoginForm = () => {
     try {
       const result = await loginUser(data).unwrap();
       dispatch(setCredentials({ token: result.token }));
-      alert('Connexion réussie !');
+      // alert('Connexion réussie !');
       navigate('/events');
     } catch (err) {
       console.error('Échec de la connexion :', err);

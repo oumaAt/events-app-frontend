@@ -4,6 +4,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useRegisterMutation } from "../../features/auth/authApi";
 import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setCredentials } from "../../features/auth/authSlice";
 
 const registerSchema = z
   .object({
@@ -12,7 +14,10 @@ const registerSchema = z
     email: z.email("Adresse e-mail invalide."),
     password: z
       .string()
-      .min(6, "Le mot de passe doit contenir au moins 6 caractères."),
+      .regex(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+[\]{};':"\\|,.<>/?]).{6,}$/,
+        "Le mot de passe doit contenir une majuscule, une minuscule, un chiffre et un caractère spécial."
+      ),
     confirmPassword: z
       .string()
       .min(1, "La confirmation du mot de passe est requise."),
@@ -23,6 +28,7 @@ const registerSchema = z
   });
 
 const RegisterPage = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [registerUser, { isLoading, isSuccess, isError, error }] =
     useRegisterMutation();
@@ -56,7 +62,8 @@ const RegisterPage = () => {
   const onSubmit = async (data) => {
     const { confirmPassword, ...userData } = data;
     try {
-      await registerUser(userData).unwrap();
+      const result = await registerUser(userData).unwrap();
+      dispatch(setCredentials({ token: result.token }));
       navigate("/dashboard");
     } catch (err) {
       console.error("Échec de l'inscription :", err);
@@ -148,7 +155,6 @@ const RegisterPage = () => {
             </p>
           )}
         </div>
-
 
         <div>
           <label
