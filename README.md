@@ -11,7 +11,7 @@
 * Validation des formulaires avec Zod
 
 ########################## Technologies utilisées ##############################################################################
-React 18
+React 19
 
 Redux Toolkit (RTK) + RTK Query
 
