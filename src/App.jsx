@@ -8,6 +8,7 @@ import RegisterPage from "./pages/auth/RegisterPage";
 import LoginPage from "./pages/auth/LoginPage";
 import EventsPage from "./pages/EventsPage";
 import Navbar from "./layouts/Navbar";
+import DashboardPage from "./pages/DashboardPage";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/events" element={<EventsPage />} />
+          <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="/" element={<Navigate to="/login" replace />} />
         </Routes>
       </div>

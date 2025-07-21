@@ -12,7 +12,7 @@ export const eventsApi = createApi({
       return headers;
     },
   }),
-  tagTypes: ["Event"],
+  tagTypes: ["Event", "EventStats"],
   endpoints: (builder) => ({
     getEvents: builder.query({
       query: (filters = {}) => ({
@@ -37,6 +37,13 @@ export const eventsApi = createApi({
       }),
       invalidatesTags: ["Event"],
     }),
+    getDashboardStats: builder.query({
+      query: () => ({
+        url: "dashboard/stats",
+        method: "POST",
+      }),
+      providesTags: ["EventStats"],
+    }),
   }),
 });
 
@@ -44,4 +51,5 @@ export const {
   useGetEventsQuery,
   useAddEventMutation,
   useDeleteEventMutation,
+  useGetDashboardStatsQuery,
 } = eventsApi;
