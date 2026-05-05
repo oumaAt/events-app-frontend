@@ -1,30 +1,36 @@
-############### Fonctionnalités principales ################################################################################"
+# Event Manager — Frontend
 
-* Authentification (Inscription,connexion/déconnexion)
-* Gestion des événements :
-    - Création d'un nouvel événement
-    - Affichage de la liste des événements
-    - Suppression d'un événement
-    - Filtrage des événements ( par statut, catégorie) et recherche par titre
+A React application for managing events with filtering, search, and dark mode support.
 
-* Mode sombre/clair via un switch (hook useDarkMode)
-* Validation des formulaires avec Zod
+## Features
 
-########################## Technologies utilisées ##############################################################################
-React 19
+- **Authentication** — register, login and logout
+- **Event management** — create, list and delete events
+- **Filtering & search** — filter by status and category, search by title
+- **Dark / light mode** — toggle via a custom `useDarkMode` hook
+- **Form validation** — schema-based validation with Zod
 
-Redux Toolkit (RTK) + RTK Query
+## Tech Stack
 
-React Router DOM
+- **React 19**
+- **Redux Toolkit + RTK Query** — state management and API calls
+- **React Router DOM** — client-side routing
+- **TailwindCSS** — utility-first styling
+- **Zod** — form validation
+- **Vite** — build tool
+- **ESLint + Prettier** — code quality and formatting
 
-TailwindCSS
+## Getting Started
 
-Zod pour la validation
-
-Vite
-
-ESLint + Prettier pour la qualité du code
-
-############# Installation ######################################################################################################
+```bash
 npm install
 npm run dev
+```
+
+## Environment Variables
+
+Copy `.env.example` and fill in your API base URL:
+
+```bash
+cp .env.example .env
+```
